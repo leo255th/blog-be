@@ -1,4 +1,4 @@
-import { User } from "./models/user";
+import { UserEntity } from "./models/user.entity";
 
 const config = {
   db: {
@@ -8,7 +8,7 @@ const config = {
     username: "leone",
     password: "123456",
     database: "blog-be",
-    entities: [User],
+    entities: [UserEntity],
     synchronize: true, // 开发环境同步数据库
     logging: true
   }
