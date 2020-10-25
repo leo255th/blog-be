@@ -24,10 +24,16 @@
     "@nestjs/core": "^6.7.2",
     "@nestjs/graphql": "^7.7.0",
     "@nestjs/platform-express": "^6.7.2",
+    "@nestjs/typeorm": "^7.1.4",
+    "apollo-server-express": "^2.18.2",
+    "class-validator": "^0.12.2",
+    "mysql": "^2.18.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.3",
-    "type-graphql": "^1.1.0"
+    "type-graphql": "^1.1.0",
+    "typeorm": "^0.2.28",
+    "ws": "^7.3.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^6.9.0",
