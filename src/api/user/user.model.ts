@@ -4,7 +4,6 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { Result } from "../common/common.model";
 
-// import { Field, Int, ObjectType } from 'type-graphql';
 
 // 虚拟业务对象，用户类 User
 @ObjectType()

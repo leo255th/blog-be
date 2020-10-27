@@ -11,6 +11,11 @@ export class ArticleEntity {
   @PrimaryGeneratedColumn({ type: 'bigint', comment: '主键，文章的id' })
   id: number;
 
+  @Field(type => Int, { description: '作者的id', nullable: false })
+  @Column({ type: 'bigint', comment: '作者的id', nullable: false })
+  userId: number;
+
+
   @Field(type => String, { description: "文章的标题", nullable: false })
   @Column({ comment: '文章的标题', nullable: false })
   title: string;

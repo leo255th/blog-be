@@ -32,11 +32,36 @@ type RegisterRes {
   user: User
 }
 
+type Article {
+  """文章ID"""
+  articleId: Int!
+}
+
+type AddArticleRes {
+  """结果"""
+  res: Result!
+
+  """文章"""
+  article: Article
+}
+
+type EditArticleRes {
+  """结果"""
+  res: Result!
+
+  """文章"""
+  article: Article
+}
+
 type Query {
   user(
     """用户ID"""
     userId: Int!
   ): User!
+  article(
+    """文章ID"""
+    articleId: Int!
+  ): Article!
 }
 
 type Mutation {
@@ -51,6 +76,12 @@ type Mutation {
     """注册"""
     byUserName: ByUserNameInput
   ): RegisterRes!
+
+  """添加文章"""
+  addArticle(input: AddArticleInput!): AddArticleRes!
+
+  """编辑文章"""
+  editArticle(input: EditArticleInput!): EditArticleRes!
 }
 
 """密码登陆"""
@@ -69,4 +100,43 @@ input ByUserNameInput {
 
   """密码"""
   pwd: String!
+}
+
+"""发布文章所需内容"""
+input AddArticleInput {
+  """作者ID"""
+  userId: Int!
+
+  """文章的标题"""
+  title: String!
+
+  """文章的内容（富文本）"""
+  content: String!
+
+  """文章的领域"""
+  field: String!
+
+  """文章的标签"""
+  tags: [String!]!
+}
+
+"""编辑文章所需内容"""
+input EditArticleInput {
+  """文章ID"""
+  id: Int!
+
+  """作者ID"""
+  userId: Int!
+
+  """文章的标题"""
+  title: String!
+
+  """文章的内容（富文本）"""
+  content: String!
+
+  """文章的领域"""
+  field: String!
+
+  """文章的标签"""
+  tags: [String!]!
 }

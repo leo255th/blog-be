@@ -8,7 +8,7 @@ const config = {
     username: "leone",
     password: "123456",
     database: "blog-be",
-    entities: [UserEntity],
+    entities: [__dirname + "/models/*.entity{.ts,.js}"],
     synchronize: true, // 开发环境同步数据库
     logging: true
   }
