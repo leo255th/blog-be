@@ -2,19 +2,33 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""请求的结果"""
+type Result {
+  """结果"""
+  done: Boolean!
+
+  """错误信息"""
+  errMsg: String
+}
+
 type User {
   """用户ID"""
   userId: Int!
-
-  """测试属性"""
-  email: String
 }
 
 type LoginRes {
   """登陆结果"""
-  res: Boolean!
+  res: Result!
 
   """登陆成功后返回用户信息"""
+  user: User
+}
+
+type RegisterRes {
+  """注册结果"""
+  res: Result!
+
+  """注册成功后返回用户信息"""
   user: User
 }
 
@@ -31,10 +45,25 @@ type Mutation {
     """密码"""
     byPwd: ByPwdInput
   ): LoginRes!
+
+  """注册"""
+  register(
+    """注册"""
+    byUserName: ByUserNameInput
+  ): RegisterRes!
 }
 
 """密码登陆"""
 input ByPwdInput {
+  """用户名"""
+  userName: String!
+
+  """密码"""
+  pwd: String!
+}
+
+"""用户名方式注册"""
+input ByUserNameInput {
   """用户名"""
   userName: String!
 

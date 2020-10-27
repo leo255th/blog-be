@@ -1,7 +1,7 @@
 import { Args, Mutation, Query, Resolver, Subscription, Info, Context, CONTEXT, GqlExecutionContext, ResolveField, Parent } from '@nestjs/graphql';
 import { Int } from 'type-graphql';
-import { LoginArgs } from './user.args';
-import { LoginRes, User } from './user.model';
+import { LoginArgs, RegisterArgs } from './user.args';
+import { LoginRes, RegisterRes, User } from './user.model';
 import { UserService } from './user.service';
 @Resolver(of => User)
 export class UserResolver {
@@ -20,15 +20,25 @@ export class UserResolver {
   async login(
     @Args() args: LoginArgs
   ): Promise<LoginRes> {
-    console.log(args)
-    return { res: true, user: { userId: 1 } }
+    if (args.byPwd) {
+      return await this.userService.loginByPwd(args.byPwd)
+    }
   }
 
-  @ResolveField(returns => String, { name: "email", description: '测试属性', nullable: true })
-  async userInfo(
-    @Parent() user: User
-  ) {
-    return user.userId + "@qq.com";
+  @Mutation(returns => RegisterRes, { description: "注册" })
+  async register(
+    @Args() args: RegisterArgs
+  ): Promise<RegisterRes> {
+    if (args.byUserName) {
+      return await this.userService.registerByUserName(args.byUserName);
+    }
   }
+
+  // @ResolveField(returns => String, { name: "email", description: '测试属性', nullable: true })
+  // async userInfo(
+  //   @Parent() user: User
+  // ) {
+  //   return user.userId + "@qq.com";
+  // }
 
 }
