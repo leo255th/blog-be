@@ -5,15 +5,24 @@
 type User {
   """用户ID"""
   userId: Int!
+
+  """测试属性"""
+  email: String
 }
 
 type LoginRes {
   """登陆结果"""
   res: Boolean!
+
+  """登陆成功后返回用户信息"""
+  user: User
 }
 
 type Query {
-  test: User!
+  user(
+    """用户ID"""
+    userId: Int!
+  ): User!
 }
 
 type Mutation {

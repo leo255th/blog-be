@@ -6,7 +6,7 @@
 import { Field, Int, ObjectType ,ArgsType} from "@nestjs/graphql";
 import { ByPwdInput } from "./user.input";
 
-// 登陆参数
+// 参数
 @ArgsType()
 export class LoginArgs {
   @Field(type => ByPwdInput, { nullable: true, description: '密码' })

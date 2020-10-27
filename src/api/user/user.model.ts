@@ -17,6 +17,6 @@ export class LoginRes {
   @Field(type => Boolean, { description: '登陆结果' })
   res: boolean;
 
-  // @Field(type => User, { description: '登陆成功后返回用户信息', nullable: true })
-  // user: User;
+  @Field(type => User, { description: '登陆成功后返回用户信息', nullable: true })
+  user: User;
 }

@@ -7,5 +7,4 @@ export class ByPwdInput {
   userName: string;
   @Field(type => String, { description: '密码', nullable: false })
   pwd: string;
-
 }
