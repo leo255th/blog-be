@@ -40,3 +40,20 @@ export class EditArticleInput {
   tags: string[];
 }
 
+@InputType({ description: '搜索选项' })
+export class ArticlesFilterInput {
+  @Field(type => Int, { nullable: true, description: '作者ID' })
+  readonly equal_userId?: number;
+  @Field(type => String, { nullable: true, description: '领域' })
+  readonly equal_field?: string;
+  @Field(type => Date, { nullable: true, description: '最早发布时间' })
+  readonly min_createdAt?: Date;
+  @Field(type => Date, { nullable: true, description: '最晚发布时间' })
+  readonly max_createdAt?: Date;
+  @Field(type => [String], { nullable: 'itemsAndList', description: '文章标签' })
+  readonly in_tags?: string[];
+  @Field(type => Int, { defaultValue: 0, description: '偏移量' })
+  readonly offset?: number;
+  @Field(type => Int, { defaultValue: 10, description: '数量' })
+  readonly num?: number;
+}

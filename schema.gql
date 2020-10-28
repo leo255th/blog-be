@@ -32,9 +32,46 @@ type RegisterRes {
   user: User
 }
 
+type ArticleEntity {
+  """文章的id"""
+  id: Int!
+
+  """作者的id"""
+  userId: Int!
+
+  """文章的标题"""
+  title: String!
+
+  """文章的内容（富文本）"""
+  content: String!
+
+  """文章的领域"""
+  field: String!
+
+  """文章点赞数"""
+  likeNum: Int!
+
+  """创建时间"""
+  createdAt: DateTime!
+
+  """最后修改时间"""
+  updatedAt: DateTime!
+
+  """是否删除"""
+  isDeleted: Boolean!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Article {
   """文章ID"""
   articleId: Int!
+
+  """文章详情"""
+  data: ArticleEntity!
 }
 
 type AddArticleRes {
@@ -53,6 +90,14 @@ type EditArticleRes {
   article: Article
 }
 
+type ArticleList {
+  """文章列表"""
+  list: [ArticleEntity]
+
+  """总数"""
+  total: Int
+}
+
 type Query {
   user(
     """用户ID"""
@@ -62,6 +107,33 @@ type Query {
     """文章ID"""
     articleId: Int!
   ): Article!
+
+  """文章列表"""
+  articles(input: ArticlesFilterInput!): ArticleList
+}
+
+"""搜索选项"""
+input ArticlesFilterInput {
+  """作者ID"""
+  equal_userId: Int
+
+  """领域"""
+  equal_field: String
+
+  """最早发布时间"""
+  min_createdAt: DateTime
+
+  """最晚发布时间"""
+  max_createdAt: DateTime
+
+  """文章标签"""
+  in_tags: [String]
+
+  """偏移量"""
+  offset: Int = 0
+
+  """数量"""
+  num: Int = 10
 }
 
 type Mutation {

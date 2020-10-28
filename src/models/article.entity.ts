@@ -1,9 +1,6 @@
-import { Field, ID, ObjectType, Int } from 'type-graphql';
+import { Field, ID, ObjectType, Int } from '@nestjs/graphql';
 
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-
-
-
 @ObjectType()
 @Entity({ name: "article" })
 export class ArticleEntity {
@@ -12,16 +9,15 @@ export class ArticleEntity {
   id: number;
 
   @Field(type => Int, { description: '作者的id', nullable: false })
-  @Column({ type: 'bigint', comment: '作者的id', nullable: false })
+  @Column({ comment: '作者的id', type: 'bigint', nullable: true, default: 0 })
   userId: number;
 
-
   @Field(type => String, { description: "文章的标题", nullable: false })
-  @Column({ comment: '文章的标题', nullable: false })
+  @Column({ comment: '文章标题', nullable: true })
   title: string;
 
   @Field(type => String, { description: '文章的内容（富文本）', nullable: false })
-  @Column({ comment: "文章的内容", nullable: false, type: 'text' })
+  @Column({ comment: "文章的内容", nullable: false, type: 'longtext', default: '' })
   content: string;
 
   @Field(type => String, { description: '文章的领域', nullable: false })

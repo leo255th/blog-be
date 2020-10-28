@@ -2,6 +2,7 @@
 // 也可能是虚拟的一个业务对象(不直接使用数据库类，而是使用计算属性，将数据库类包含其中，成为一个字段)，用作graphql schema图中的核心结点
 
 import { Field, Int, ObjectType } from "@nestjs/graphql";
+import { ArticleEntity } from "src/models/article.entity";
 import { Result } from "../common/common.model";
 
 // import { Field, Int, ObjectType } from 'type-graphql';
@@ -27,4 +28,13 @@ export class EditArticleRes {
   res: Result;
   @Field(type => Article, { description: '文章', nullable: true })
   article?: Article;
+}
+
+@ObjectType()
+export class ArticleList {
+  @Field(type => [ArticleEntity], { description: '文章列表', nullable: 'itemsAndList' })
+  list?: ArticleEntity[];
+
+  @Field(type => Int, { description: '总数', nullable: true })
+  total?: number;
 }

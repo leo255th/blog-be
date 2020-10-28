@@ -1,7 +1,8 @@
-import { Args, Mutation, Query, Resolver, Subscription, Info, Context, CONTEXT, GqlExecutionContext, ResolveField, Parent, Int } from '@nestjs/graphql';
+import { Args, Mutation, Query, Subscription, Info, Context, CONTEXT, GqlExecutionContext, Parent, Int, ResolveProperty, Resolver } from '@nestjs/graphql';
+import { ArticleEntity } from 'src/models/article.entity';
 import { result } from 'src/utils/result';
-import { AddArticleInput, EditArticleInput } from './article.input';
-import { Article, AddArticleRes, EditArticleRes } from './article.model';
+import { AddArticleInput, ArticlesFilterInput, EditArticleInput } from './article.input';
+import { Article, AddArticleRes, EditArticleRes, ArticleList } from './article.model';
 import { ArticleService } from './article.service';
 @Resolver(of => Article)
 export class ArticleResolver {
@@ -27,5 +28,23 @@ export class ArticleResolver {
     @Args('input') input: EditArticleInput
   ): Promise<EditArticleRes> {
     return this.articleService.edit(input);
+  }
+
+  // 查找单个文章的详情
+  @ResolveProperty(returns => ArticleEntity, { name: "data", description: '文章详情' })
+  async articleData(
+    @Parent() article: Article
+  ): Promise<ArticleEntity> {
+    return { id: 1, content: '', title: 'asasa', field: "adas", userId: 11, likeNum: 0 };
+    // return;
+    // return await this.articleService.findOneArticle(article.articleId)
+  }
+
+  // 查找多个文章的列表
+  @Query(returns => ArticleList, { name: 'articles', description: '文章列表', nullable: true })
+  async articles(
+    @Args('input') input: ArticlesFilterInput
+  ) {
+    return await this.articleService.findManyArticles(input);
   }
 }
