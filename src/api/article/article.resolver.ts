@@ -35,9 +35,8 @@ export class ArticleResolver {
   async articleData(
     @Parent() article: Article
   ): Promise<ArticleEntity> {
-    return { id: 1, content: '', title: 'asasa', field: "adas", userId: 11, likeNum: 0 };
-    // return;
-    // return await this.articleService.findOneArticle(article.articleId)
+
+    return await this.articleService.findOneArticle(article.articleId)
   }
 
   // 查找多个文章的列表
