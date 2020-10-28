@@ -32,6 +32,10 @@ export class CommentEntity {
   @Field(type => Int, { nullable: true, description: "被评论的评论的id" })
   commentedCommentId: number;
 
+  @Column({ nullable: true, comment: '被评论的根评论的id', type: 'bigint' })
+  @Field(type => Int, { nullable: true, description: "被评论的根评论的id" })
+  commentedRootCommentId: number;
+
   @Column({ nullable: true, comment: '被评论的文章的id', type: 'bigint' })
   @Field(type => Int, { nullable: true, description: "被评论的文章的id" })
   commentedArticleId: number;
