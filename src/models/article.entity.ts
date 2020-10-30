@@ -9,15 +9,15 @@ export class ArticleEntity {
   id: number;
 
   @Field(type => Int, { description: '作者的id', nullable: false })
-  @Column({ comment: '作者的id', type: 'bigint', nullable: true, default: 0 })
+  @Column({ comment: '作者的id', type: 'bigint', nullable: false, default: 0 })
   userId: number;
 
   @Field(type => String, { description: "文章的标题", nullable: false })
-  @Column({ comment: '文章标题', nullable: true })
+  @Column({ comment: '文章标题', nullable: false })
   title: string;
 
   @Field(type => String, { description: '文章的内容（富文本）', nullable: false })
-  @Column({ comment: "文章的内容", nullable: false, type: 'longtext', default: '' })
+  @Column({ comment: "文章的内容", nullable: false, type: 'longtext' })
   content: string;
 
   @Field(type => String, { description: '文章的领域', nullable: false })

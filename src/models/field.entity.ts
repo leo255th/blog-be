@@ -3,7 +3,7 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateCol
 
 // 文章领域
 @ObjectType()
-@Entity({ name: "article" })
+@Entity({ name: "field" })
 export class FieldEntity {
   @Field(type => Int, { description: 'id' })
   @PrimaryGeneratedColumn({ type: 'bigint', comment: '主键id' })

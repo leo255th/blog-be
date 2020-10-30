@@ -32,9 +32,9 @@ export class CommentEntity {
   @Field(type => Int, { nullable: true, description: "被评论的评论的id" })
   commentedCommentId: number;
 
-  @Column({ nullable: true, comment: '被评论的根评论的id', type: 'bigint' })
-  @Field(type => Int, { nullable: true, description: "被评论的根评论的id" })
-  commentedRootCommentId: number;
+  @Column({ nullable: true, comment: '根评论下一级评论的id', type: 'bigint' })
+  @Field(type => Int, { nullable: true, description: "根评论下一级评论的id" })
+  commentedParentCommentId: number;
 
   @Column({ nullable: true, comment: '被评论的文章的id', type: 'bigint' })
   @Field(type => Int, { nullable: true, description: "被评论的文章的id" })
@@ -47,10 +47,6 @@ export class CommentEntity {
   @Column({ comment: "评论人用户ID", type: 'bigint' })
   @Field(type => Int, { nullable: false, description: "评论人用户ID" })
   userId: number;
-
-  @Field(type => String, { description: "文章的标题", nullable: false })
-  @Column({ comment: '文章的标题', nullable: false })
-  title: string;
 
   @Field(type => String, { description: "评论内容", nullable: false })
   @Column({ comment: "评论内容", nullable: false })
