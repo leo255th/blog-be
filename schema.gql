@@ -98,6 +98,72 @@ type ArticleList {
   total: Int
 }
 
+type CommentEntity {
+  """评论的id"""
+  id: Int!
+
+  """评论类型"""
+  commentType: CommentType!
+
+  """被评论的用户的id"""
+  commentedUserId: Int
+
+  """被评论的评论的id"""
+  commentedCommentId: Int
+
+  """根评论下一级评论的id"""
+  commentedParentCommentId: Int
+
+  """被评论的文章的id"""
+  commentedArticleId: Int
+
+  """评论人用户名"""
+  userName: String!
+
+  """评论人用户ID"""
+  userId: Int!
+
+  """评论内容"""
+  content: String!
+
+  """创建时间"""
+  createdAt: DateTime!
+
+  """最后修改时间"""
+  updatedAt: DateTime!
+
+  """是否删除"""
+  isDeleted: Boolean!
+}
+
+"""评论的类型"""
+enum CommentType {
+  USER
+  ARTICLE
+  COMMENT
+}
+
+type Comment {
+  """评论ID"""
+  commentId: Int!
+}
+
+type AddCommentRes {
+  """结果"""
+  res: Result!
+
+  """评论"""
+  comment: Comment
+}
+
+type CommentList {
+  """评论列表"""
+  list: [CommentEntity]
+
+  """总数"""
+  total: Int
+}
+
 type Query {
   user(
     """用户ID"""
@@ -110,6 +176,20 @@ type Query {
 
   """文章列表"""
   articles(input: ArticlesFilterInput!): ArticleList
+  comment(
+    """评论ID"""
+    commentId: Int!
+  ): Comment!
+  comments(
+    """获取某个用户主页下的评论"""
+    toUser: Comment2UserGetInput
+
+    """获取某个文章下的评论"""
+    toArticle: Comment2ArticleGetInput
+
+    """获取某个评论的对话,根评论->一级评论，以及一级评论下的所有子评论"""
+    toComment: Comment2CommentGetInput
+  ): CommentList!
 }
 
 """搜索选项"""
@@ -136,6 +216,39 @@ input ArticlesFilterInput {
   num: Int = 10
 }
 
+input Comment2UserGetInput {
+  """被评论的用户的id"""
+  commentedUserId: Int!
+
+  """偏移量"""
+  offset: Int = 0
+
+  """数量"""
+  num: Int = 10
+}
+
+input Comment2ArticleGetInput {
+  """被评论的文章的id"""
+  commentedArticleId: Int!
+
+  """偏移量"""
+  offset: Int = 0
+
+  """数量"""
+  num: Int = 10
+}
+
+input Comment2CommentGetInput {
+  """根评论下第一级评论的id"""
+  commentedParentCommentId: Int!
+
+  """偏移量"""
+  offset: Int = 0
+
+  """数量"""
+  num: Int = 10
+}
+
 type Mutation {
   """登陆"""
   login(
@@ -154,6 +267,18 @@ type Mutation {
 
   """编辑文章"""
   editArticle(input: EditArticleInput!): EditArticleRes!
+
+  """添加评论"""
+  addComment(
+    """留在用户主页的评论"""
+    toUser: Comment2UserAddInput
+
+    """在文章详情页留下的评论"""
+    toArticle: Comment2ArticleAddInput
+
+    """对评论的评论"""
+    toComment: Comment2CommentAddInput
+  ): AddCommentRes!
 }
 
 """密码登陆"""
@@ -211,4 +336,55 @@ input EditArticleInput {
 
   """文章的标签"""
   tags: [String!]!
+}
+
+input Comment2UserAddInput {
+  """发送人userId"""
+  userId: Int!
+
+  """发送人用户名"""
+  userName: String!
+
+  """被评论的用户的id"""
+  commentedUserId: Int!
+
+  """评论内容"""
+  content: String!
+}
+
+input Comment2ArticleAddInput {
+  """发送人userId"""
+  userId: Int!
+
+  """发送人用户名"""
+  userName: String!
+
+  """被评论的文章的id"""
+  commentedArticleId: Int!
+
+  """评论内容"""
+  content: String!
+}
+
+input Comment2CommentAddInput {
+  """发送人userId"""
+  userId: Int!
+
+  """发送人用户名"""
+  userName: String!
+
+  """被评论的评论的id"""
+  commentedCommentId: Int!
+
+  """根评论下第一级评论的id"""
+  commentedParentCommentId: Int!
+
+  """评论内容"""
+  content: String!
+
+  """被评论的用户的id"""
+  commentedUserId: Int
+
+  """被评论的文章的id"""
+  commentedArticleId: Int
 }

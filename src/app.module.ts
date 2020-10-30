@@ -6,11 +6,13 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { appConfig } from './app.config';
 import { ArticleModule } from './api/article/article.module';
+import { CommentModule } from './api/comment/comment.module';
 
 @Module({
   imports: [
     UserModule,
     ArticleModule,
+    CommentModule,
     GraphQLModule.forRoot({
       playground: true,  // 是否开启GraphQL IDE图形界面
       autoSchemaFile: 'schema.gql',//自动生成的gql文件的路径和文件名
