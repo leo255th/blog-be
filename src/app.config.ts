@@ -1,9 +1,4 @@
 import { TypeOrmModuleAsyncOptions, TypeOrmModuleOptions } from "@nestjs/typeorm";
-// import { ArticleEntity } from "./models/article.entity";
-// import { CommentEntity } from "./models/comment.entity";
-// import { FieldEntity } from "./models/field.entity";
-// import { TagEntity } from "./models/tag.entity";
-// import { UserEntity } from "./models/user.entity";
 
 const config: {
   db: TypeOrmModuleOptions
