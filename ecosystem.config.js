@@ -1,6 +1,7 @@
 module.exports = {
   apps : [{
-    script: 'index.js',
+    name :'blog-be',
+    script: 'npm run build && node ./dist/main.js',
     watch: '.'
   }, {
     script: './service-worker/',
