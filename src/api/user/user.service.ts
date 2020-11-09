@@ -65,4 +65,12 @@ export class UserService {
       }
     }
   }
+
+  // 查询用户信息
+  async getUserInfo(userId: number): Promise<string> {
+    const user = await this.userRepository.findOne(userId);
+    if (user) {
+      return user.userName;
+    }
+  }
 }

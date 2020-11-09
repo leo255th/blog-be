@@ -34,11 +34,11 @@ export class UserResolver {
     }
   }
 
-  // @ResolveField(returns => String, { name: "email", description: '测试属性', nullable: true })
-  // async userInfo(
-  //   @Parent() user: User
-  // ) {
-  //   return user.userId + "@qq.com";
-  // }
+  @ResolveField(returns => String, { name: "userName", description: '测试属性', nullable: true })
+  async userInfo(
+    @Parent() user: User
+  ) {
+    return await this.userService.getUserInfo(user.userId);
+  }
 
 }
