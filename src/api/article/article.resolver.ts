@@ -1,5 +1,6 @@
 import { Args, Mutation, Query, Subscription, Info, Context, CONTEXT, GqlExecutionContext, Parent, Int, ResolveProperty, Resolver } from '@nestjs/graphql';
 import { ArticleEntity } from 'src/models/article.entity';
+import { FieldEntity } from 'src/models/field.entity';
 import { result } from 'src/utils/result';
 import { AddArticleInput, ArticlesFilterInput, EditArticleInput } from './article.input';
 import { Article, AddArticleRes, EditArticleRes, ArticleList } from './article.model';
@@ -16,6 +17,10 @@ export class ArticleResolver {
     return { articleId } as Article;
   }
 
+  @Query(returns => [FieldEntity])
+  async fields(): Promise<FieldEntity[]> {
+    return this.articleService.getFields();
+  }
   @Mutation(returns => AddArticleRes, { name: 'addArticle', description: '添加文章' })
   async add(
     @Args('input') input: AddArticleInput,

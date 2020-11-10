@@ -10,13 +10,16 @@ import { result } from 'src/utils/result';
 import { Repository } from 'typeorm';
 import { AddArticleInput, ArticlesFilterInput, EditArticleInput } from './article.input';
 import { AddArticleRes, Article, ArticleList, EditArticleRes } from './article.model';
+import { FieldEntity } from 'src/models/field.entity';
 @Injectable()
 export class ArticleService {
   constructor(
     @InjectRepository(ArticleEntity)
     private readonly articleRepository: Repository<ArticleEntity>,
     @InjectRepository(TagEntity)
-    private readonly tagRepository: Repository<TagEntity>
+    private readonly tagRepository: Repository<TagEntity>,
+    @InjectRepository(FieldEntity)
+    private readonly fieldRepository: Repository<FieldEntity>,
   ) { }
 
   // 添加文章
@@ -139,9 +142,14 @@ export class ArticleService {
       .getManyAndCount();
     console.log('查找到的文章是:', res);
     return {
-      list:res[0],
-      total:res[1]
+      list: res[0],
+      total: res[1]
     };
   }
 
+  // 查询领域
+  async getFields(): Promise<FieldEntity[]> {
+    const res = await this.fieldRepository.find();
+    return res;
+  }
 }
