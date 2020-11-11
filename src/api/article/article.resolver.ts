@@ -45,7 +45,7 @@ export class ArticleResolver {
   }
 
   // 查找多个文章的列表
-  @Query(returns => ArticleList, { name: 'articles', description: '文章列表', nullable: true })
+  @Query(returns => ArticleList, { name: 'articles', description: '文章列表', nullable: false })
   async articles(
     @Args('input') input: ArticlesFilterInput
   ) {
