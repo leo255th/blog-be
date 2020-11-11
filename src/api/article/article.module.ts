@@ -9,8 +9,8 @@ import { ArticleEntityResolver } from './articleEntity.resolver';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([ArticleEntity,TagEntity,FieldEntity])
+    TypeOrmModule.forFeature([ArticleEntity, TagEntity, FieldEntity])
   ],
-  providers: [ArticleService, ArticleResolver,ArticleEntityResolver]
+  providers: [ArticleService, ArticleResolver, ArticleEntityResolver]
 })
 export class ArticleModule { }

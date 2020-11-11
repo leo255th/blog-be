@@ -12,7 +12,7 @@ export class ArticleEntityResolver {
   ) { }
 
   // 查找单个文章的标签
-  @ResolveProperty(returns => [String], { name: "data", description: '文章详情' })
+  @ResolveProperty(returns => [String], { name: "tags", description: '文章详情' })
   async articleData(
     @Parent() article: ArticleEntity
   ): Promise<string[]> {
