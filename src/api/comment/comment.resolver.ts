@@ -32,7 +32,7 @@ export class CommentResolver {
     if (args.toUser) {
       return this.commentService.getComments2User(args.toUser);
     } else if (args.toArticle) {
-      return this.commentService.getComments2Comment(args.toComment);
+      return this.commentService.getComments2Article(args.toArticle);
     } else if (args.toComment) {
       return this.commentService.getComments2Comment(args.toComment);
     }

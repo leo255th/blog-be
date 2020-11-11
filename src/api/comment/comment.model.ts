@@ -22,6 +22,5 @@ export class CommentList {
   list?: CommentEntity[];
   @Field(type => Int, { description: '总数', nullable: true })
   total?: number;
-
-
+  
 }
