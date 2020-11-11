@@ -45,7 +45,7 @@ export class CommentService {
   async getComments2User(input: Comment2UserGetInput): Promise<CommentList> {
     const { commentedUserId, num, offset } = input;
     const qs = this.commentRepository.createQueryBuilder('comment');
-    const res = qs.where('comment.commentedUserId=:commentedUserId', { commentedUserId })
+    const res = await qs.where('comment.commentedUserId=:commentedUserId', { commentedUserId })
       .orderBy({ "comment.createdAt": 'DESC' })
       .skip(offset)
       .take(num)
@@ -60,7 +60,7 @@ export class CommentService {
   async getComments2Article(input: Comment2ArticleGetInput): Promise<CommentList> {
     const { commentedArticleId, num, offset } = input;
     const qs = this.commentRepository.createQueryBuilder('comment');
-    const res = qs.where('comment.commentedArticleId=:commentedArticleId', { commentedArticleId })
+    const res = await qs.where('comment.commentedArticleId=:commentedArticleId', { commentedArticleId })
       .orderBy({ "comment.createdAt": 'DESC' })
       .skip(offset)
       .take(num)
