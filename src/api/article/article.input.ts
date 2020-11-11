@@ -9,6 +9,9 @@ export class AddArticleInput {
   @Field(type => String, { description: "文章的标题", nullable: false })
   title: string;
 
+  @Field(type => String, { description: "文章的描述", nullable: false })
+  description: string;
+  
   @Field(type => String, { description: '文章的内容（富文本）', nullable: false })
   content: string;
 

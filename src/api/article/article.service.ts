@@ -27,6 +27,7 @@ export class ArticleService {
     let article = new ArticleEntity();
     console.log(dto);
     article.title = dto.title;
+    article.description = dto.description;
     article.content = dto.content;
     article.field = dto.field;
     article.userId = dto.userId;
