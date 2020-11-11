@@ -118,6 +118,13 @@ export class ArticleService {
     return await this.articleRepository.findOne(id);
   }
 
+  // 查找某篇文章的所有标签
+  async getTags(id: number): Promise<string[]> {
+    const res = await this.tagRepository.find({ articleId: id, isDeleted: false });
+    const tags = res.map(tagItem => tagItem.content);
+    return tags;
+  }
+
   // 根据条件筛选指定的文章，返回文章列表
   async findManyArticles(input: ArticlesFilterInput): Promise<ArticleList> {
     const userId = input.equal_userId ? input.equal_userId : undefined;
