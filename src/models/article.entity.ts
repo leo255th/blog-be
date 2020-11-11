@@ -16,6 +16,10 @@ export class ArticleEntity {
   @Column({ comment: '文章标题', nullable: false })
   title: string;
 
+  @Field(type => String, { description: "文章的描述", nullable: false })
+  @Column({ comment: '文章的描述', nullable: false,type:'text' })
+  description: string;
+
   @Field(type => String, { description: '文章的内容（富文本）', nullable: false })
   @Column({ comment: "文章的内容", nullable: false, type: 'longtext' })
   content: string;
