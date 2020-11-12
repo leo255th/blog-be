@@ -98,9 +98,40 @@ export class UserService {
       .andWhere('article.isDeleted=0')
       .select('article.createdAt', 'time')
       .getRawMany();
-    const timeList = res.map(item => new Date(item.time));
+    const timeList: Date[] = res.map(item => new Date(item.time));
     console.log('查询到的时间列表是：', timeList);
-    
-    return;
+    const timeMap = new Map<number, Object>();
+    for (const time of timeList) {
+      // 都是从0开始，所以加一
+      const year = time.getFullYear() + 1;
+      const month = time.getMonth() + 1;
+      const obj = timeMap.get(year);
+      if (obj) {
+        if (obj[month]) {
+          obj[month] += 1;
+        } else {
+          obj[month] = 1;
+        }
+        // 保存修改
+        timeMap.set(year, obj);
+      } else {
+        // 初始化
+        const obj = {};
+        obj[month] = 1;
+        timeMap.set(year, obj)
+      }
+    }
+    const dateSet: DateCount[] = [];
+    timeMap.forEach((obj, year) => {
+      const months = Object.keys(obj);
+      for (const month of months) {
+        dateSet.push({
+          year: +year,
+          month: +month,
+          num: obj[month]
+        })
+      }
+    })
+    return dateSet
   }
 }
