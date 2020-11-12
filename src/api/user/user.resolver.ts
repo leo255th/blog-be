@@ -45,7 +45,7 @@ export class UserResolver {
   async fields(
     @Parent() user: User
   ) {
-    return await this.userService.getUserInfo(user.userId);
+    return await this.userService.getUserFields(user.userId);
   }
 
 }
