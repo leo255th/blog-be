@@ -78,15 +78,14 @@ export class UserService {
   }
 
   // 查询用户的领域数
-  async getUserFields(userId: number): Promise<FieldCount> {
+  async getUserFields(userId: number): Promise<FieldCount[]> {
     const qs = this.articleRepository.createQueryBuilder('article');
     const res = await qs
       .where('article.userId=:userId', { userId:+userId })
-      .select('article.field')
-      .addSelect('count(article.field)', 'count')
+      .select('article.field','field')
+      .addSelect('count(article.field)', 'num')
       .groupBy('article.field')
-      .getRawMany()
-    console.log('获取的领域：', res)
-    return;
+      .getRawMany();
+    return res;
   }
 }
