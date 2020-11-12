@@ -81,7 +81,7 @@ export class UserService {
   async getUserFields(userId: number): Promise<FieldCount> {
     const qs = this.articleRepository.createQueryBuilder('article');
     const res = await qs
-      .where('article.userId=:userId', { userId })
+      .where('article.userId=:userId', { userId:+userId })
       .select('article.field')
       .addSelect('count(article.field)', 'count')
       .groupBy('article.field')
