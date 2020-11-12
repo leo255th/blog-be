@@ -102,8 +102,8 @@ export class UserService {
     console.log('查询到的时间列表是：', timeList);
     const timeMap = new Map<number, Object>();
     for (const time of timeList) {
-      // 都是从0开始，所以加一
-      const year = time.getFullYear() + 1;
+      const year = time.getFullYear();
+      // 从0开始，所以加一
       const month = time.getMonth() + 1;
       const obj = timeMap.get(year);
       if (obj) {
