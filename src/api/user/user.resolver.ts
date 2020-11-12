@@ -1,7 +1,7 @@
 import { Args, Mutation, Query, Resolver, Subscription, Info, Context, CONTEXT, GqlExecutionContext, ResolveField, Parent, Int } from '@nestjs/graphql';
 import { ArticleList } from '../article/article.model';
 import { LoginArgs, RegisterArgs } from './user.args';
-import { LoginRes, RegisterRes, User } from './user.model';
+import { FieldCount, LoginRes, RegisterRes, User } from './user.model';
 import { UserService } from './user.service';
 @Resolver(of => User)
 export class UserResolver {
@@ -36,6 +36,13 @@ export class UserResolver {
 
   @ResolveField(returns => String, { name: "userName", description: '测试属性', nullable: true })
   async userInfo(
+    @Parent() user: User
+  ) {
+    return await this.userService.getUserInfo(user.userId);
+  }
+
+  @ResolveField(returns => [FieldCount], { name: "fields", description: '用户的关键字', nullable: true })
+  async fields(
     @Parent() user: User
   ) {
     return await this.userService.getUserInfo(user.userId);

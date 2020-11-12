@@ -29,3 +29,11 @@ export class RegisterRes {
   @Field(type => User, { description: '注册成功后返回用户信息', nullable: true })
   user?: User;
 }
+
+@ObjectType()
+export class FieldCount {
+  @Field(type => String, { description: '领域名' })
+  field: string;
+  @Field(type => Int, { description: '对应数量' })
+  num: number;
+}

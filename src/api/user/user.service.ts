@@ -1,16 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ArticleEntity } from 'src/models/article.entity';
 import { UserEntity } from 'src/models/user.entity';
 import { pwdEncrypt } from 'src/utils/pwdEnc';
 import { result } from 'src/utils/result';
 import { Repository } from 'typeorm';
 import { ByPwdInput, ByUserNameInput } from './user.input';
-import { RegisterRes, LoginRes } from './user.model'
+import { RegisterRes, LoginRes, FieldCount } from './user.model'
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+    @InjectRepository(ArticleEntity)
+    private readonly articleRepository: Repository<ArticleEntity>,
   ) { }
 
   // 用户注册
@@ -72,5 +75,18 @@ export class UserService {
     if (user) {
       return user.userName;
     }
+  }
+
+  // 查询用户的领域数
+  async getUserFields(userId: number): Promise<FieldCount> {
+    const qs = this.articleRepository.createQueryBuilder('article');
+    const res = await qs
+      .where('article.userId=:userId', { userId })
+      .select('article.field')
+      .addSelect('count(article.field)', 'count')
+      .groupBy('article.field')
+      .getRawMany()
+    console.log('获取的领域：', res)
+    return;
   }
 }
