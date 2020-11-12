@@ -6,7 +6,7 @@ import { pwdEncrypt } from 'src/utils/pwdEnc';
 import { result } from 'src/utils/result';
 import { Repository } from 'typeorm';
 import { ByPwdInput, ByUserNameInput } from './user.input';
-import { RegisterRes, LoginRes, FieldCount } from './user.model'
+import { RegisterRes, LoginRes, FieldCount, DateCount } from './user.model'
 @Injectable()
 export class UserService {
   constructor(
@@ -81,11 +81,26 @@ export class UserService {
   async getUserFields(userId: number): Promise<FieldCount[]> {
     const qs = this.articleRepository.createQueryBuilder('article');
     const res = await qs
-      .where('article.userId=:userId', { userId:+userId })
-      .select('article.field','field')
+      .where('article.userId=:userId', { userId: +userId })
+      .andWhere('article.isDeleted=0')
+      .select('article.field', 'field')
       .addSelect('count(article.field)', 'num')
       .groupBy('article.field')
       .getRawMany();
     return res;
+  }
+
+  // 查询用户文章日期归档
+  async getUserDateSets(userId: number): Promise<DateCount[]> {
+    const qs = this.articleRepository.createQueryBuilder('article');
+    const res = await qs
+      .where('article.userId=:userId', { userId: +userId })
+      .andWhere('article.isDeleted=0')
+      .select('article.createdAt', 'time')
+      .getRawMany();
+    const timeList = res.map(item => new Date(item.time));
+    console.log('查询到的时间列表是：', timeList);
+    
+    return;
   }
 }

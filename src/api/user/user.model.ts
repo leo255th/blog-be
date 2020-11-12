@@ -37,3 +37,12 @@ export class FieldCount {
   @Field(type => Int, { description: '对应数量' })
   num: number;
 }
+@ObjectType()
+export class DateCount {
+  @Field(type => Int, { description: '年' })
+  year: number;
+  @Field(type => Int, { description: '月' })
+  month: number;
+  @Field(type => Int, { description: '对应数量' })
+  num: number;
+}
