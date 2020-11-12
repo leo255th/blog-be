@@ -18,4 +18,12 @@ export class ArticleEntityResolver {
   ): Promise<string[]> {
     return await this.articleService.getTags(article.id);
   }
+
+  // 查找文章的作者名
+  @ResolveProperty(returns => String, { name: 'userName', description: '文章的作者名' })
+  async userName(
+    @Parent() article: ArticleEntity
+  ): Promise<string> {
+    return await this.articleService.getUserName(article.userId);
+  }
 }

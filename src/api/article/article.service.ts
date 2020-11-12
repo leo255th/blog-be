@@ -20,6 +20,8 @@ export class ArticleService {
     private readonly tagRepository: Repository<TagEntity>,
     @InjectRepository(FieldEntity)
     private readonly fieldRepository: Repository<FieldEntity>,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
   ) { }
 
   // 添加文章
@@ -159,5 +161,10 @@ export class ArticleService {
   async getFields(): Promise<FieldEntity[]> {
     const res = await this.fieldRepository.find();
     return res;
+  }
+
+  async getUserName(userId: number): Promise<string> {
+    const user = await this.userRepository.findOne(+userId);
+    return user.userName;
   }
 }
